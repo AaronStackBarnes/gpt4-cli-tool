@@ -1,4 +1,4 @@
-# index.js Overview
+# Overview
 
 This is a Node.js script that interacts with the OpenAI API to ask questions about specified files or directories. The AI returns answers and, if requested, generates a stand-alone Node.js script to apply the changes.
 
