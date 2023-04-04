@@ -1,0 +1,6 @@
+conversations/
+node_modules/
+.env
+gpt_changes.js
+
+
