@@ -19,7 +19,7 @@ This is a Node.js script that interacts with the OpenAI API to ask questions abo
 To use the script, run the following command:
 
 ```
-gpt4-cli-tool <question> <file-or-directory>
+gpt4 <question> <file-or-directory>
 ```
 
 The script will send a request to the OpenAI API with the specified question and file or directory information. The AI will return an answer, and if requested, a stand-alone Node.js script to apply the changes. Press SPACE to apply the changes, or any other key to exit.
