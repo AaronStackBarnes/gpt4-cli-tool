@@ -22,6 +22,12 @@ To use the script, run the following command:
 gpt4 <question> <file-or-directory>
 ```
 
+The script defaults to the gpt-4 model, to specify a different model run the following command:
+
+```
+gpt4 <question> <file-or-directory> <model-name>
+```
+
 The script will send a request to the OpenAI API with the specified question and file or directory information. The AI will return an answer, and if requested, a stand-alone Node.js script to apply the changes. Press SPACE to apply the changes, or any other key to exit.
 
 ## Uninstallation
@@ -55,6 +61,7 @@ The script uses the following Node.js modules:
 ## Notes
 
 - The OpenAI API key should be stored in a `.env` file with the variable name `OPENAI_API_KEY`.
+- The API key needs access to the model chosen for the script.
 - Conversations with the AI are saved to the `./conversations` directory for future use.
 
 
