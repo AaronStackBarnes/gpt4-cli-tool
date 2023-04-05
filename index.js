@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const fs = require("fs");
 const path = require("path");
 const child_process = require("child_process");
@@ -6,7 +7,7 @@ const dotenv = require("dotenv");
 const axios = require("axios");
 const Spinner = require("cli-spinner").Spinner;
 
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 const openai = axios.create({
   baseURL: "https://api.openai.com/v1",
@@ -19,7 +20,8 @@ const openai = axios.create({
 (async () => {
   let question = process.argv[2];
   let fileOrDir = process.argv[3];
-  let max_tokens = process.argv[4];
+  let model = process.argv[4];
+  let max_tokens = process.argv[5];
 
   if (!question || !fileOrDir) {
     console.log(
@@ -70,8 +72,11 @@ const openai = axios.create({
   }
 
   let options = {};
+  if (model) {
+    options = { model, ...options };
+  }
   if (max_tokens) {
-    options = { max_tokens: parseInt(max_tokens) };
+    options = { max_tokens: parseInt(max_tokens), ...options };
   }
 
   console.log(question);
@@ -171,10 +176,11 @@ function saveConversationToFile(identifier, conversation) {
 
 async function createChatCompletion(
   messages,
-  { temperature = 0.8, max_tokens = 1000 }
+  { temperature = 0.8, model = "gpt-4", max_tokens = 1000 }
 ) {
   const options = {
     temperature,
+    model,
     max_tokens,
   };
 
@@ -187,7 +193,9 @@ async function createChatCompletion(
 
     return response.data.choices[0].message.content;
   } catch (error) {
-    console.error("Error creating chat completion:", error);
-    console.log(error.response.data);
+    // console.error("Error creating chat completion:", error);
+    // console.log(error.response.data);
+    console.log("Error creating chat completion:", error.response.data.error.message);
+    process.exit()
   }
 }
